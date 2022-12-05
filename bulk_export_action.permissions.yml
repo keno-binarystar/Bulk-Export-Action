@@ -1,0 +1,7 @@
+administer bulk_export_action configuration:
+  title: 'Administer bulk_export_action configuration'
+  description: 'Optional description.'
+  restrict access: true
+bulk_export:
+  title: 'Bulk Export actions'
+  description: 'Here is the description'

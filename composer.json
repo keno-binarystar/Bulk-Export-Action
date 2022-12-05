@@ -1,0 +1,10 @@
+{
+  "name": "drupal/vbo_content_export",
+  "description": "Drupal module that leverages Default Content Deploy and Views Bulk Operation to export content.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "require": {
+    "drupal/default_content_deploy": "^2",
+    "drupal/views_bulk_operations": "^4"
+  }
+}
