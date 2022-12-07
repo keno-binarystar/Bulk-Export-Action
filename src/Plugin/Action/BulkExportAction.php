@@ -12,21 +12,17 @@ use Drupal\Core\Session\AccountInterface;
  *
  * @Action(
  *   id = "bulk_export_action",
- *   label = @Translation("Export content in a view"),
+ *   label = @Translation("Export content to Stage"),
  *   type = "",
- *   confirm = TRUE,
+ *   confirm = TRUE
  * )
  */
 class BulkExportAction extends ViewsBulkOperationsActionBase implements ViewsBulkOperationsPreconfigurationInterface {
-
-  private $logger = \Drupal::logger('bulk_export');
 
   /**
    * {@inheritdoc}
    */
   public function execute($entity = NULL) {
-    $logger->notice("Hi, it's me {$entity->id()}");
-
     /*
       ==============================
       Default Content Deploy
@@ -45,18 +41,19 @@ class BulkExportAction extends ViewsBulkOperationsActionBase implements ViewsBul
       $result = $exporter
         ->export()
         ->getResult();
-      $logger->notice($result);
+      //$loggerr->notice($result);
 
       // How can I trigger an ansible script to promote to stage?
       //$cmd = "ansible-playbook {path/to/folder}/deploy-to-stage.yml";
-      //$output = shell_exec($cmd);
-      $logger->notice($output);
-
+      $output = shell_exec('/var/www/push.sh');
+      //$loggerr->notice($output);
+      \Drupal::logger('bulk_export')->notice($output);
+ 
     }
     catch (\InvalidArgumentException $e) {
-      $logger->error($e->getMessage());
+      \Drupal::logger('bulk_export')->notice($e->getMessage());
+      //$loggerr->error($e->getMessage());
     }
-
   }
 
    /**
@@ -69,9 +66,9 @@ class BulkExportAction extends ViewsBulkOperationsActionBase implements ViewsBul
       '#type' => 'textfield',
       '#default_value' => isset($values['bulk_export_action_pre_config']) ? $values['bulk_export_action_pre_config'] : '',
     ];
+   
     return $form;
   }
-
 
   /**
    * {@inheritdoc}
