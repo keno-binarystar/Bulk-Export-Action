@@ -23,11 +23,6 @@ class BulkExportAction extends ViewsBulkOperationsActionBase implements ViewsBul
    * {@inheritdoc}
    */
   public function execute($entity = NULL) {
-    /*
-      ==============================
-      Default Content Deploy
-      ==============================
-    */
     try {
       $exporter = \Drupal::service('default_content_deploy.exporter');
       $exporter->setEntityTypeId(
@@ -45,11 +40,9 @@ class BulkExportAction extends ViewsBulkOperationsActionBase implements ViewsBul
 
       $output = shell_exec('../scripts/push.sh');
       \Drupal::logger('bulk_export')->notice($output);
- 
     }
     catch (\InvalidArgumentException $e) {
       \Drupal::logger('bulk_export')->notice($e->getMessage());
-      //$loggerr->error($e->getMessage());
     }
   }
 
@@ -63,7 +56,7 @@ class BulkExportAction extends ViewsBulkOperationsActionBase implements ViewsBul
       '#type' => 'textfield',
       '#default_value' => isset($values['bulk_export_action_pre_config']) ? $values['bulk_export_action_pre_config'] : '',
     ];
-   
+
     return $form;
   }
 
