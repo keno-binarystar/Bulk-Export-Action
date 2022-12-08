@@ -34,6 +34,7 @@ class BulkExportAction extends ViewsBulkOperationsActionBase implements ViewsBul
         $entity->getEntityTypeId()
       );
 
+      //$exporter->setMode('default');
       $exporter->setMode('reference');
       $exporter->setEntityIds(
         [$entity->id()]
@@ -41,12 +42,8 @@ class BulkExportAction extends ViewsBulkOperationsActionBase implements ViewsBul
       $result = $exporter
         ->export()
         ->getResult();
-      //$loggerr->notice($result);
 
-      // How can I trigger an ansible script to promote to stage?
-      //$cmd = "ansible-playbook {path/to/folder}/deploy-to-stage.yml";
-      $output = shell_exec('/var/www/push.sh');
-      //$loggerr->notice($output);
+      $output = shell_exec('../scripts/push.sh');
       \Drupal::logger('bulk_export')->notice($output);
  
     }
