@@ -12,7 +12,7 @@ use Drupal\Core\Session\AccountInterface;
  *
  * @Action(
  *   id = "bulk_export_action",
- *   label = @Translation("Export content to Stage"),
+ *   label = @Translation("Export content to Repository"),
  *   type = "",
  *   confirm = TRUE
  * )
